@@ -8,7 +8,8 @@ use Slim\Http\ServerRequest;
 
 final class UserReadAction
 {
-    private $userReader;
+    /** @var UserReader The user reader */
+    private UserReader $userReader;
 
     public function __construct(UserReader $userReader)
     {
@@ -18,21 +19,21 @@ final class UserReadAction
     public function __invoke(ServerRequest $request, Response $response, array $args = []): Response
     {
         // Collect input from the HTTP request
-        $userId = (int)$args['id'];
+        $userId = (int)$args["id"];
 
         // Invoke the Domain with inputs and retain the result
         $userData = $this->userReader->getUserDetails($userId);
 
         // Transform the result into the JSON representation
         $result = [
-            'user_id' => $userData->id,
-            'username' => $userData->username,
-            'first_name' => $userData->firstName,
-            'last_name' => $userData->lastName,
-            'email' => $userData->email,
+            "user_id" => $userData->id,
+            "username" => $userData->username,
+            "first_name" => $userData->firstName,
+            "last_name" => $userData->lastName,
+            "email" => $userData->email,
         ];
 
         // Build the HTTP response
-        return $response->withJson($result)->withStatus(200);
+        return $response->withJson($result);
     }
 }

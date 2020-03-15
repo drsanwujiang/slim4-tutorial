@@ -10,10 +10,8 @@ use PDO;
  */
 class UserCreatorRepository
 {
-    /**
-     * @var PDO The database connection
-     */
-    private $connection;
+    /** @var PDO The database connection */
+    private PDO $connection;
 
     /**
      * Constructor.
@@ -35,16 +33,16 @@ class UserCreatorRepository
     public function insertUser(UserCreateData $user): int
     {
         $row = [
-            'username' => $user->username,
-            'first_name' => $user->firstName,
-            'last_name' => $user->lastName,
-            'email' => $user->email,
+            "username" => $user->username,
+            "first_name" => $user->firstName,
+            "last_name" => $user->lastName,
+            "email" => $user->email,
         ];
 
-        $sql = "INSERT INTO users SET 
-                username=:username, 
-                first_name=:first_name, 
-                last_name=:last_name, 
+        $sql = "INSERT INTO users SET
+                username=:username,
+                first_name=:first_name,
+                last_name=:last_name,
                 email=:email;";
 
         $this->connection->prepare($sql)->execute($row);

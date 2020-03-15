@@ -11,10 +11,8 @@ use UnexpectedValueException;
  */
 final class UserReader
 {
-    /**
-     * @var UserReaderRepository
-     */
-    private $repository;
+    /** @var UserReaderRepository */
+    private UserReaderRepository $repository;
 
     /**
      * The constructor.
@@ -39,7 +37,7 @@ final class UserReader
     {
         // Validation
         if (empty($userId)) {
-            throw new UnexpectedValueException('User ID required');
+            throw new UnexpectedValueException("User ID required");
         }
 
         $user = $this->repository->getUserById($userId);

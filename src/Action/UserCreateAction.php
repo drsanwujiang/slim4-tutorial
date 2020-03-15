@@ -9,7 +9,8 @@ use Slim\Http\ServerRequest;
 
 final class UserCreateAction
 {
-    private $userCreator;
+    /** @var UserCreator The user creator */
+    private UserCreator $userCreator;
 
     public function __construct(UserCreator $userCreator)
     {
@@ -21,19 +22,15 @@ final class UserCreateAction
         // Collect input from the HTTP request
         $data = (array)$request->getParsedBody();
 
-        // Mapping (should be done in a mapper class)
-        $user = new UserCreateData();
-        $user->username = $data['username'];
-        $user->firstName = $data['first_name'];
-        $user->lastName = $data['last_name'];
-        $user->email = $data['email'];
+        // Mapping (done by ArrayReader)
+        $user = new UserCreateData($data);
 
         // Invoke the Domain with inputs and retain the result
         $userId = $this->userCreator->createUser($user);
 
         // Transform the result into the JSON representation
         $result = [
-            'user_id' => $userId
+            "user_id" => $userId
         ];
 
         // Build the HTTP response

@@ -2,22 +2,38 @@
 
 namespace App\Domain\User\Data;
 
+use Selective\ArrayReader\ArrayReader;
+
 final class UserData
 {
+    /** @var int */
+    public int $id;
+
+    /** @var string */
+    public string $username;
+
+    /** @var string */
+    public string $firstName;
+
+    /** @var string */
+    public string $lastName;
+
+    /** @var string */
+    public string $email;
+
     /**
-     * @var int
+     * The constructor.
+     *
+     * @param array $array The array with data
      */
-    public $id;
+    public function __construct(array $array = [])
+    {
+        $data = new ArrayReader($array);
 
-    /** @var string */
-    public $username;
-
-    /** @var string */
-    public $firstName;
-
-    /** @var string */
-    public $lastName;
-
-    /** @var string */
-    public $email;
+        $this->id = $data->getInt("id");
+        $this->username = $data->getString("username");
+        $this->firstName = $data->getString("first_name");
+        $this->lastName = $data->getString("last_name");
+        $this->email = $data->getString("email");
+    }
 }

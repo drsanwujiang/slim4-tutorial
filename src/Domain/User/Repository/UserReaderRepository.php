@@ -11,10 +11,8 @@ use PDO;
  */
 class UserReaderRepository
 {
-    /**
-     * @var PDO The database connection
-     */
-    private $connection;
+    /** @var PDO The database connection */
+    private PDO $connection;
 
     /**
      * Constructor.
@@ -39,21 +37,16 @@ class UserReaderRepository
     {
         $sql = "SELECT id, username, first_name, last_name, email FROM users WHERE id = :id;";
         $statement = $this->connection->prepare($sql);
-        $statement->execute(['id' => $userId]);
+        $statement->execute(["id" => $userId]);
 
         $row = $statement->fetch();
 
         if (!$row) {
-            throw new DomainException(sprintf('User not found: %s', $userId));
+            throw new DomainException(sprintf("User not found: %s", $userId));
         }
 
-        // Map array to data object
-        $user = new UserData();
-        $user->id = (int)$row['id'];
-        $user->username = (string)$row['username'];
-        $user->firstName = (string)$row['first_name'];
-        $user->lastName = (string)$row['last_name'];
-        $user->email = (string)$row['email'];
+        // Mapping (done by ArrayReader)
+        $user = new UserData($row);
 
         return $user;
     }

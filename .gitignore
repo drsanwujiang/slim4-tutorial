@@ -1,11 +1,10 @@
 build/
 vendor/
 .idea/
+.vscode/
 
 !tmp/
 tmp/*
-!tmp/empty
 
 !logs/
 logs/*
-!logs/empty

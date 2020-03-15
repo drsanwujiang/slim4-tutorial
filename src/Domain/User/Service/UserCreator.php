@@ -11,10 +11,8 @@ use UnexpectedValueException;
  */
 final class UserCreator
 {
-    /**
-     * @var UserCreatorRepository
-     */
-    private $repository;
+    /** @var UserCreatorRepository */
+    private UserCreatorRepository $repository;
 
     /**
      * The constructor.
@@ -37,7 +35,7 @@ final class UserCreator
     {
         // Validation
         if (empty($user->username)) {
-            throw new UnexpectedValueException('Username required');
+            throw new UnexpectedValueException("Username required");
         }
 
         // Insert user
