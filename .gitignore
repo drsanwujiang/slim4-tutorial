@@ -2,9 +2,3 @@ build/
 vendor/
 .idea/
 .vscode/
-
-!tmp/
-tmp/*
-
-!logs/
-logs/*
